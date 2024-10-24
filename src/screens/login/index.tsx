@@ -1,18 +1,24 @@
 import { GithubLogo} from '@phosphor-icons/react'
 import styles from './styles.module.css'
 import Button from '../../components/button'
-import { useNavigate } from 'react-router-dom'
+
+
+import { api } from '../../services/api'
 
 
  function Login(){
-  const navigate = useNavigate()
 
+   async function handleAuth(){
+    const { data } = await api.get("/auth")
+
+    window.location.href = data.redirectUrl;
+   }
 
     return (
         <div className={styles.container}>
           <div className={styles.content}>
           <h1>Entre com</h1>
-          <Button onClick={()=> navigate('/')}>
+          <Button onClick={handleAuth}>
             <GithubLogo/>
             GitHub
             </Button>
